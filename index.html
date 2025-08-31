@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算器</title>
+    <link rel="stylesheet" type="text/css" href="./calculator.css">
+</head>
+<body>
+    <div id="main">
+        <!-- 计算器 -->
+        <div class="calculator">
+            <!-- 输入输出框 -->
+            <div id="putout_box">
+                <p id="putout_p"></p>
+                <input id="putout_input" type="text" disabled>
+            </div>
+
+            <!-- 按钮 -->
+            <div class="buttons">
+                <button class="btn operator-btn">AC</button>
+                <button class="btn operator-btn">⌫</button>
+                <button class="btn operator-btn">%</button>
+                <button class="btn operator-btn">÷</button>
+                <button class="btn number-btn">7</button>
+                <button class="btn number-btn">8</button>
+                <button class="btn number-btn">9</button>
+                <button class="btn operator-btn">×</button>
+                <button class="btn number-btn">4</button>
+                <button class="btn number-btn">5</button>
+                <button class="btn number-btn">6</button>
+                <button class="btn operator-btn">-</button>
+                <button class="btn number-btn">1</button>
+                <button class="btn number-btn">2</button>
+                <button class="btn number-btn">3</button>
+                <button class="btn operator-btn">+</button>
+                <button id="is_history" class="btn"><img src="./icons/最近使用.png"></button>
+                <button class="btn number-btn">0</button>
+                <button class="btn operator-btn">.</button>
+                <button class="btn operator-btn">=</button>
+            </div>
+
+            <!-- 历史记录 -->
+            <div id="history">
+                <h2>历史记录</h2>
+                <div id="history_list">
+                    <p id="history_p">暂无历史记录</p>
+                    <ul id="history_ul">
+                        <!-- 历史记录将动态添加到这里 -->
+                    </ul>
+                </div>
+                <div id="history_btn">
+                    <button id="close_history"><img src="./icons/最近使用.png"></button>
+                    <button id="clear_history"><img src="./icons/清空.png"></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="tips">
+            <p>
+                1.使用鼠标或数字键盘输入数字，回车键计算结果;
+            </p>
+            <p>
+                2.使用 ESC 键清空显示框的值;
+            </p>
+            <p>
+                3.本计算器将存储计算的数据和结果，通过清空历史按钮可删除存储的数据和结果!
+            </p>
+        </div>
+    </div>
+
+    <script src="./calculator.js"></script>
+</body>
+</html>

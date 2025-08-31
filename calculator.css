@@ -1,0 +1,248 @@
+/* 计算器全局样式 */
+* {
+    box-sizing: border-box; /* 盒模型设置 */
+    margin: 0;  /* 清除默认外边距 */
+    padding: 0; /* 清除默认内边距 */
+    width: 100%;    /* 全宽 */
+    height: 100%;   /* 全高 */
+}
+
+body {
+    width: 100%; /* 宽度 */
+    min-height: 650px; /* 最小高度 */
+    height: 100%; /* 高度 */
+    background: linear-gradient(135deg, #6a11cb, #2575fc);    /* 渐变色背景 */
+}
+
+#main {
+    width: 360px;   /* 宽度 */
+    height: 650px;  /* 高度 */
+    position: absolute;  /* 绝对定位 */
+    top: 50%;   /* 垂直居中 */
+    left: 50%;  /* 水平居中 */
+    transform: translate(-50%, -50%);  /* 位移到中心 */
+}
+
+.calculator {
+    width: 100%;   /* 全宽 */
+    height: 500px;  /* 全高 */
+    background-color: rgba(255, 255, 255, 0.1);  /* 半透明背景 */
+    border-radius: 20px;  /* 圆角边框 */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);  /* 阴影效果 */
+    padding: 20px;  /* 内边距 */
+}
+
+#putout_box {
+    width: 320px;   /* 全宽 */
+    height: 100px;  /* 高度 */
+    border-radius: 10px;  /* 圆角边框 */
+    background-color: rgba(255, 255, 255, 0.1);  /* 半透明背景 */
+    padding: 10px;  /* 内边距 */
+}
+
+#putout_p {
+    width: 100%;   /* 全宽 */
+    height: 40px;  /* 高度 */
+    line-height: 20px;  /* 行高 */
+    font-size: 17px;  /* 字体大小 */
+    color: #c7c7c7;  /* 灰色文字 */
+    text-align: right;  /* 文字右对齐 */
+    overflow: hidden;  /* 隐藏溢出部分 */
+    white-space: nowrap; /* 不换行 */
+    text-overflow: ellipsis; /* 显示省略号 */
+}
+
+#putout_input {
+    width: 100%;   /* 全宽 */
+    height: 40px;  /* 高度 */
+    border: none;  /* 无边框 */
+    font-size: 42px;  /* 字体大小 */
+    font-weight: 500;  /* 字体粗细 */
+    color: #fff;  /* 白色文字 */
+    background-color: rgba(255, 255, 255, 0);  /* 透明背景 */
+    border-radius: 10px;  /* 圆角边框 */
+    text-align: right;  /* 文字右对齐 */
+    overflow: hidden;  /* 隐藏溢出部分 */
+    white-space: nowrap; /* 不换行 */
+    text-overflow: ellipsis; /* 显示省略号 */
+}
+
+.buttons {
+    width: 100%;   /* 全宽 */
+    height: 360px;  /* 高度 */
+    padding-top: 20px;  /* 上内边距 */
+    display: grid;  /* 网格布局 */
+    grid-auto-rows: 60px;  /* 自动行高 */
+    grid-template-columns: 70px 70px 70px 70px;  /* 四列布局 */
+    justify-content: space-around; /* 水平间距 */
+    row-gap: 10px;  /* 行间距 */
+    column-gap: 13.4px;  /* 列间距 */
+}
+
+.btn {
+    border: none;  /* 无边框 */
+    border-radius: 10px;  /* 圆角边框 */
+    background-color: rgba(255, 255, 255, 0.15);  /* 背景颜色 */
+    color: #fff;  /* 白色文字 */
+    font-size: 20px;  /* 字体大小 */
+    cursor: pointer;  /* 鼠标指针样式 */
+}
+
+.btn img {
+    width: 50px; /* 图片宽度 */
+    height: 50px; /* 图片高度 */
+}
+
+.btn:hover {
+    transform: translateY(-2px); /* 鼠标悬停时向上偏移 */
+    background-color: rgba(255, 255, 255, 0.15);  /* 背景颜色 */
+}
+
+@keyframes animate {
+    0% {
+        transform: translateY(0); /* 初始位置 */
+    }
+    50% {
+        transform: translateY(1px); /* 向上偏移 */
+    }
+    100% {
+        transform: translateY(-2px); /* 回到初始位置 */
+    }
+}
+
+.btn:active {
+    animation: animate 0.2s ease; /* 点击时动画效果 */
+}
+
+#history {
+    width: 320px;   /* 全宽 */
+    height: 340px;  /* 高度 */
+    background: linear-gradient(135deg, #6a11cb, #2575fc);    /* 渐变色背景 */
+    border-radius: 10px;  /* 圆角边框 */
+    position: absolute; /* 绝对定位 */
+    top: 140px;  /* 上边距 */
+    z-index: 30;  /* 层级 */
+    display: none;  /* 默认隐藏 */
+}
+
+#history h2 {
+    width: 100%;   /* 全宽 */
+    height: 40px;  /* 高度 */
+    text-align: center;  /* 文字居中 */
+    color: #fff;  /* 白色文字 */
+    font-size: 20px;  /* 字体大小 */
+    border-bottom: #fff 1px solid;  /* 白色下边框 */
+}
+
+#history_list {
+    width: 100%;   /* 全宽 */
+    height: 260px;  /* 高度 */
+    overflow-y: auto;  /* 垂直滚动条 */
+    padding: 10px;  /* 内边距 */
+}
+
+/* 隐藏滚动条但保留功能 */
+#history_list {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+
+#history_list::-webkit-scrollbar {
+    width: 0;   /* Chrome, Safari */
+    background: transparent;  /* 背景透明 */
+}
+
+#history_p {
+    width: 100%;   /* 全宽 */
+    height: 30px;  /* 高度 */
+    line-height: 30px;  /* 行高 */
+    text-align: center;  /* 文字居中 */
+    color: #c7c7c7;  /* 灰色文字 */
+    font-size: 14px;  /* 字体大小 */
+    margin-bottom: 10px;  /* 下外边距 */
+}
+
+#history_ul {
+    width: 100%;   /* 全宽 */
+    height: 100%;  /* 全高 */
+    list-style: none;  /* 无列表样式 */
+    padding: 0;  /* 清除内边距 */
+    margin: 0;  /* 清除外边距 */
+    display: none; /* 默认隐藏 */
+}
+
+#history_list li {
+    width: 100%;   /* 全宽 */
+    height: 40px;  /* 高度 */
+    border-bottom: #fff 1px solid;  /* 白色下边框 */
+    margin-bottom: 5px;  /* 下外边距 */
+    text-align: right; /* 右对齐 */
+    cursor: pointer;  /* 鼠标指针样式 */
+}
+
+.history_name {
+    width: 100%; /* 全宽 */
+    height: 15px;  /* 高度 */
+    font-size: 12px;    /* 字体大小 */
+    color: #c7c7c7;  /* 灰色文字 */
+    overflow: hidden;  /* 隐藏溢出部分 */
+    white-space: nowrap; /* 不换行 */
+    text-overflow: ellipsis; /* 显示省略号 */
+}
+
+.history_value {
+    width: 100%; /* 全宽 */
+    height: 25px;  /* 高度 */
+    color: #fff;  /* 白色文字 */
+}
+
+#history_btn {
+    width: 100%;   /* 全宽 */
+    height: 40px;   /* 高度 */
+}
+
+#history_btn button {
+    width: 40px;    /* 全宽 */
+    height: 40px;   /* 高度 */
+    background-color: rgba(255, 255, 255, 0.15);  /* 半透明背景 */
+    border: none;  /* 无边框 */
+    border-radius: 10px;  /* 圆角边框 */
+    cursor: pointer;  /* 鼠标指针样式 */
+}
+
+#history_btn button:hover {
+    transform: translateY(-2px); /* 鼠标悬停时向上偏移 */
+    background-color: rgba(255, 255, 255, 0.15);  /* 半透明背景 */
+}
+
+#history_btn button:active {
+    animation: animate 0.2s ease; /* 点击时动画效果 */
+}
+
+#history_btn button img {
+    width: 100%;   /* 全宽 */
+    height: 100%;  /* 全高 */
+}
+
+#clear_history {
+    margin-left: 236.35px;
+}
+
+.tips {
+    width: 360px;   /* 全宽 */
+    height: 130px;  /* 高度 */
+    background-color: rgba(255, 255, 255, 0.1);  /* 半透明背景 */
+    border: #fff 1px solid;  /* 白色边框 */
+    box-sizing: border-box; /* 盒模型设置 */
+    border-radius: 20px;  /* 圆角边框 */
+    position: relative; /* 相对定位 */
+    top: 20px;  /* 向下偏移 */
+    color: #fff;  /* 白色文字 */
+    font-size: 14px;  /* 字体大小 */
+    padding: 15px;  /* 内边距 */
+}
+
+.tips p {
+    width: 100%;   /* 全宽 */
+    height: 30px;  /* 高度 */
+}
