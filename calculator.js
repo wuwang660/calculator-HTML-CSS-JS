@@ -347,7 +347,7 @@ document.addEventListener('DOMContentLoaded', function() {
  * @param {*} decimals
  * @returns
  */
-function precise(value, decimals = 14) {
+function precise(value, decimals = 12) {
 
     // 如果不是数字，直接返回
     if (typeof value !== 'number') return value;
