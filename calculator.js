@@ -347,7 +347,9 @@ document.addEventListener('DOMContentLoaded', function() {
  * @param {*} decimals
  * @returns
  */
-function precise(value, decimals = 1) {
+function precise(value, decimals = 14) {
+
+    // 如果不是数字，直接返回
     if (typeof value !== 'number') return value;
 
     // 将数字放大为整数进行计算，避免浮点误差

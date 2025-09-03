@@ -8,7 +8,6 @@
 }
 
 body {
-    width: 100%; /* 宽度 */
     min-height: 650px; /* 最小高度 */
     height: 100%; /* 高度 */
     background: linear-gradient(135deg, #6a11cb, #2575fc);    /* 渐变色背景 */
@@ -114,6 +113,24 @@ body {
     animation: animate 0.2s ease; /* 点击时动画效果 */
 }
 
+.tips {
+    width: 360px;   /* 全宽 */
+    height: 130px;  /* 高度 */
+    background-color: rgba(255, 255, 255, 0.1);  /* 半透明背景 */
+    border: #fff 1px solid;  /* 白色边框 */
+    box-sizing: border-box; /* 盒模型设置 */
+    border-radius: 20px;  /* 圆角边框 */
+    color: #fff;  /* 白色文字 */
+    font-size: 14px;  /* 字体大小 */
+    margin-top: 20px;  /* 上外边距 */
+    padding: 15px;  /* 内边距 */
+}
+
+.tips p {
+    width: 100%;   /* 全宽 */
+    height: 30px;  /* 高度 */
+}
+
 #history {
     width: 320px;   /* 全宽 */
     height: 340px;  /* 高度 */
@@ -199,6 +216,9 @@ body {
 #history_btn {
     width: 100%;   /* 全宽 */
     height: 40px;   /* 高度 */
+    display: flex;  /* 弹性布局 */
+    flex-wrap: nowrap;  /* 不换行 */
+    justify-content: space-between;  /* 两端对齐 */
 }
 
 #history_btn button {
@@ -222,27 +242,4 @@ body {
 #history_btn button img {
     width: 100%;   /* 全宽 */
     height: 100%;  /* 全高 */
-}
-
-#clear_history {
-    margin-left: 236.35px;
-}
-
-.tips {
-    width: 360px;   /* 全宽 */
-    height: 130px;  /* 高度 */
-    background-color: rgba(255, 255, 255, 0.1);  /* 半透明背景 */
-    border: #fff 1px solid;  /* 白色边框 */
-    box-sizing: border-box; /* 盒模型设置 */
-    border-radius: 20px;  /* 圆角边框 */
-    position: relative; /* 相对定位 */
-    top: 20px;  /* 向下偏移 */
-    color: #fff;  /* 白色文字 */
-    font-size: 14px;  /* 字体大小 */
-    padding: 15px;  /* 内边距 */
-}
-
-.tips p {
-    width: 100%;   /* 全宽 */
-    height: 30px;  /* 高度 */
 }
