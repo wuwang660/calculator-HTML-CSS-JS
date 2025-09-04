@@ -246,9 +246,9 @@ class Calculator {
 
             for (let i = 0; i < currentOpLength; i++) {
                 if (this.currentOp[i] === '+') {
-                    value += this.currentValue[i + 1];
+                    value = precise(value + this.currentValue[i + 1]);
                 } else if (this.currentOp[i] === '-') {
-                    value -= this.currentValue[i + 1];
+                    value = precise(value - this.currentValue[i + 1]);
                 }
             }
 
