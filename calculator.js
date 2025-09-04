@@ -1,8 +1,8 @@
 class Calculator {
     constructor() {
         this.putoutInputChar = '0'; // 计算器输入框的值
-        this.currentValue = 0; // 当前值
-        this.currentOp = ''; // 当前操作符
+        this.currentValue = []; // 当前值
+        this.currentOp = []; // 当前操作符
         this.judgeOp = 0; // 判断是否需要清空计算器输入框的值
 
         this.elements = {
@@ -25,9 +25,9 @@ class Calculator {
         // 设置初始值
         this.elements.putoutP.textContent = '';
         this.elements.putoutInput.value = '0';
-        this.putoutInputChar = '0';
-        this.currentValue = 0;
-        this.currentOp = '';
+        this.putoutInputChar = '';
+        this.currentValue = [];
+        this.currentOp = [];
         this.judgeOp = 0;
 
         // 绑定事件
@@ -54,20 +54,14 @@ class Calculator {
      * @param {string} appendNum - 要追加的数字
      */
     appendNumber(appendNum) {
-        if (this.currentOp !== '' && this.judgeOp === 0) {
-           this.putoutInputChar = '0';
-           this.elements.putoutInput.value = this.putoutInputChar;
-           this.judgeOp = 1;
-        }
-
-        if (this.currentOp === '' && this.judgeOp === 1) {
-           this.putoutInputChar = '0';
-           this.elements.putoutInput.value = this.putoutInputChar;
+        if (this.currentOp.length === 0 && this.judgeOp === 1) {
+           this.putoutInputChar = '';
+           this.elements.putoutInput.value = '0';
            this.judgeOp = 0;
         }
 
         if (this.putoutInputChar.length < 12) {
-            if (this.putoutInputChar === '0') {
+            if (this.putoutInputChar === '') {
                 this.putoutInputChar = appendNum;
                 this.elements.putoutInput.value = this.putoutInputChar;
             } else {
@@ -104,10 +98,10 @@ class Calculator {
      */
     clearCalculator() {
         this.elements.putoutP.textContent = '';
-        this.putoutInputChar = '0';
-        this.elements.putoutInput.value = this.putoutInputChar;
-        this.currentValue = 0;
-        this.currentOp = '';
+        this.putoutInputChar = '';
+        this.elements.putoutInput.value = '0';
+        this.currentValue = [];
+        this.currentOp = [];
         this.judgeOp = 0;
     }
 
@@ -119,8 +113,8 @@ class Calculator {
             this.putoutInputChar = this.putoutInputChar.slice(0, -1);
             this.elements.putoutInput.value = this.putoutInputChar;
         } else {
-            this.putoutInputChar = '0';
-            this.elements.putoutInput.value = this.putoutInputChar;
+            this.putoutInputChar = '';
+            this.elements.putoutInput.value = '0';
         }
     }
 
@@ -139,10 +133,16 @@ class Calculator {
      */
     handleDecimal() {
         if (parseFloat(this.putoutInputChar) === this.currentValue) {
-            this.putoutInputChar = '0';
+            this.putoutInputChar = '';
+            this.elements.putoutInput.value = '0';
         }
 
         if (!this.putoutInputChar.includes('.')) {
+            if (this.putoutInputChar === '') {
+                this.putoutInputChar = '0';
+                this.elements.putoutInput.value = this.putoutInputChar;
+            }
+
             this.putoutInputChar += '.';
             this.elements.putoutInput.value = this.putoutInputChar;
         }
@@ -153,16 +153,53 @@ class Calculator {
      * @param {string} op - 算术运算符
      */
     handleArithmeticOp(op) {
-        if (this.currentOp === '') {
-            this.elements.putoutP.textContent = this.putoutInputChar + ' ' + op;
-            this.currentValue = parseFloat(this.putoutInputChar);
-            this.currentOp = op;
-            this.judgeOp = 0;
+        if (op === '-') {
+            if (this.currentOp.length === 0) {
+                if (this.elements.putoutInput.value !== '0' && this.elements.putoutInput.value !== '-') {
+                    this.elements.putoutP.textContent = this.putoutInputChar + ' ' + op;
+                    this.currentValue.push(parseFloat(this.putoutInputChar));
+                    this.putoutInputChar = '';
+                    this.elements.putoutInput.value = '0';
+                    this.currentOp.push(op);
+                } else {
+                    this.putoutInputChar = '-';
+                    this.elements.putoutInput.value = this.putoutInputChar;
+                }
+            } else {
+                if (this.elements.putoutInput.value !== '0' && this.elements.putoutInput.value !== '-') {
+                    this.elements.putoutP.textContent += ' ' + this.putoutInputChar + ' ' + op;
+                    this.currentValue.push(parseFloat(this.putoutInputChar));
+                    this.currentOp.push(op);
+                    this.putoutInputChar = '';
+                    this.elements.putoutInput.value = '0';
+                } else {
+                    this.putoutInputChar = '-';
+                    this.elements.putoutInput.value = this.putoutInputChar;
+                }
+            }
         } else {
-            this.elements.putoutP.textContent += ' ' + this.putoutInputChar + ' ' + op;
-            this.performCalculation();
-            this.currentOp = op;
-            this.judgeOp = 0;
+            if (this.currentOp.length === 0) {
+                this.elements.putoutP.textContent = this.putoutInputChar + ' ' + op;
+                this.currentValue.push(parseFloat(this.putoutInputChar));
+                this.currentOp.push(op);
+                this.putoutInputChar = '';
+                this.elements.putoutInput.value = '0';
+            } else {
+                if(this.putoutInputChar !== '') {
+                    this.elements.putoutP.textContent += ' ' + this.putoutInputChar + ' ' + op;
+                    this.currentValue.push(parseFloat(this.putoutInputChar));
+                    this.currentOp.push(op);
+                    this.putoutInputChar = '';
+                    this.elements.putoutInput.value = '0';
+                } else {
+                    if (this.elements.putoutP.textContent.at(-1) === op) {
+                        return;
+                    } else {
+                        this.elements.putoutP.textContent = this.elements.putoutP.textContent.slice(0, -1) + op;
+                        this.currentOp[this.currentOp.length - 1] = op;
+                    }
+                }
+            }
         }
     }
 
@@ -170,32 +207,69 @@ class Calculator {
      * 执行当前运算
      */
     performCalculation() {
-        const inputNum = parseFloat(this.putoutInputChar);
+        let currentOpLength = this.currentOp.length;
 
-        const operations = {
-            '÷': () => this.currentValue = precise(this.currentValue / inputNum),
-            '×': () => this.currentValue = precise(this.currentValue * inputNum),
-            '+': () => this.currentValue = precise(this.currentValue + inputNum),
-            '-': () => this.currentValue = precise(this.currentValue - inputNum)
-        };
+        this.currentValue.push(parseFloat(this.putoutInputChar));
 
-        if (operations[this.currentOp]) {
-            operations[this.currentOp]();
+        if (this.currentOp.includes('÷') || this.currentOp.includes('×')) {
+            for (let i = 0; i < currentOpLength; i++) {
+                if (this.currentOp[i] === '÷') {
+                    this.currentValue[i + 1] = precise(this.currentValue[i] / this.currentValue[i + 1]);
+                    this.currentValue[i] = 'op';
+                    this.currentOp[i] = 'op';
+
+                } else if (this.currentOp[i] === '×') {
+                    this.currentValue[i + 1] = precise(this.currentValue[i] * this.currentValue[i + 1]);
+                    this.currentValue[i] = 'op';
+                    this.currentOp[i] = 'op';
+                }
+            }
+
+            this.currentValue = this.currentValue.filter(item => item !== 'op');
+            this.currentOp = this.currentOp.filter(item => item !== 'op');
         }
 
-        this.putoutInputChar = this.currentValue.toString();
-        this.elements.putoutInput.value = this.putoutInputChar;
+        if(this.currentValue.includes(Infinity)) {
+            this.currentValue = [Infinity];
+            this.putoutInputChar = this.currentValue[0].toString();
+            this.elements.putoutInput.value = this.putoutInputChar;
+        } else if(this.currentValue.includes(-Infinity)) {
+            this.currentValue = [-Infinity];
+            this.putoutInputChar = this.currentValue[0].toString();
+            this.elements.putoutInput.value = this.putoutInputChar;
+        } else if(this.currentValue.includes(NaN)) {
+            this.currentValue = [NaN];
+            this.putoutInputChar = this.currentValue[0].toString();
+            this.elements.putoutInput.value = this.putoutInputChar;
+        } else {
+            let value = this.currentValue[0];
+
+            for (let i = 0; i < currentOpLength; i++) {
+                if (this.currentOp[i] === '+') {
+                    value += this.currentValue[i + 1];
+                } else if (this.currentOp[i] === '-') {
+                    value -= this.currentValue[i + 1];
+                }
+            }
+
+            this.currentValue = [value];
+            this.putoutInputChar = this.currentValue[0].toString();
+            this.elements.putoutInput.value = this.putoutInputChar;
+        }
     }
 
     /**
      * 处理等于号操作
      */
     handleEquals() {
-        if (this.currentOp) {
+        if (this.currentOp.length > 0) {
             const putoutPText = this.elements.putoutInput.value;
+            this.elements.putoutP.textContent += ' ' + putoutPText;
             this.performCalculation();
-            this.computerHistory(this.elements.putoutP.textContent + ' ' + putoutPText, this.elements.putoutInput.value);
-            this.currentOp = '';
+            this.computerHistory(this.elements.putoutP.textContent, this.elements.putoutInput.value);
+            this.currentValue = [];
+            this.currentOp = [];
+            this.judgeOp = 1;
         }
     }
 
@@ -220,6 +294,7 @@ class Calculator {
         historyItem.onclick = () => {
             this.putoutInputChar = historyItem.querySelector('.history_value').textContent;
             this.elements.putoutInput.value = this.putoutInputChar;
+            this.judgeOp = 1;
         }
 
         this.elements.historyUL.insertBefore(historyItem, this.elements.historyUL.firstChild);
@@ -307,6 +382,7 @@ class Calculator {
                 historyItem.onclick = () => {
                     this.putoutInputChar = historyItem.querySelector('.history_value').textContent;
                     this.elements.putoutInput.value = this.putoutInputChar;
+                    this.judgeOp = 1;
                 }
 
                 this.elements.historyUL.insertBefore(historyItem, this.elements.historyUL.firstChild);
