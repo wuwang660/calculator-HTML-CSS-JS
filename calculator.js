@@ -179,6 +179,10 @@ class Calculator {
             }
         } else {
             if (this.currentOp.length === 0) {
+                if(this.putoutInputChar === '') {
+                    this.putoutInputChar = '0';
+                }
+                
                 this.elements.putoutP.textContent = this.putoutInputChar + ' ' + op;
                 this.currentValue.push(parseFloat(this.putoutInputChar));
                 this.currentOp.push(op);
